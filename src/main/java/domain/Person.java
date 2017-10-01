@@ -1,6 +1,7 @@
 package domain;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Person {
     private String name;
@@ -47,6 +48,11 @@ public class Person {
 
     public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public int getAge() {
+        Period age = Period.between(birthDay, LocalDate.now());
+        return age.getYears();
     }
 
     @Override

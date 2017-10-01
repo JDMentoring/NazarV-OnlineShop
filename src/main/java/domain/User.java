@@ -6,12 +6,14 @@ public class User extends Person {
     private String login;
     private String password;
     private UserState state;
+    private String email;
 
     public User() {
         super();
         this.login = "user";
         this.password = "1234";
         this.state = UserState.New;
+        this.email = "";
     }
 
     public User(String name, String surname, String login, String password) {
@@ -28,11 +30,13 @@ public class User extends Person {
         this.state = UserState.New;
     }
 
-    public User(String name, String surname, LocalDate birthDay, String login, String password, UserState state) {
+    public User(String name, String surname, LocalDate birthDay,
+                String login, String password, UserState state, String email) {
         super(name, surname, birthDay);
         this.login = login;
         this.password = password;
         this.state = state;
+        this.email = email;
     }
 
     public String getLogin() {
@@ -59,12 +63,21 @@ public class User extends Person {
         this.state = state;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", state=" + state +
-                "} " + super.toString();
+                ", email='" + email + '\'' +
+                '}';
     }
 }
