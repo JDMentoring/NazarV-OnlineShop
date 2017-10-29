@@ -1,21 +1,23 @@
 package domain;
 
+import dao.Identeficator;
+
 import java.time.LocalDate;
 
-public class Customer extends User{
-    private String id;
+public class Customer extends User implements Identeficator<Integer>{
+    private int id;
     private String address;
     private String phone;
     private UserGroup group;
 
     public Customer() {
-        this.id = "1";
+        this.id = 0;
         this.address = "noaddress";
         this.phone = "380680363051";
         this.group = UserGroup.New;
     }
 
-    public Customer(String name, String surname, String login, String password, String id, UserGroup group) {
+    public Customer(String name, String surname, String login, String password, int id, UserGroup group) {
         super(name, surname, login, password);
         this.id = id;
         this.group = group;
@@ -23,7 +25,7 @@ public class Customer extends User{
 
     public Customer(String name, String surname, LocalDate birthDay,
                     String login, String password, UserState state, String email,
-                    String id, String address, String phone, UserGroup group) {
+                    int id, String address, String phone, UserGroup group) {
         super(name, surname, birthDay, login, password, state, email);
         this.id = id;
         this.address = address;
@@ -31,11 +33,12 @@ public class Customer extends User{
         this.group = group;
     }
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
