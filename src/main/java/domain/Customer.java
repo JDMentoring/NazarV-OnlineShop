@@ -8,29 +8,29 @@ public class Customer extends User implements Identeficator<Integer>{
     private int id;
     private String address;
     private String phone;
-    private UserGroup group;
+    private UserState status;
 
     public Customer() {
         this.id = 0;
         this.address = "noaddress";
         this.phone = "380680363051";
-        this.group = UserGroup.New;
+        this.status = UserState.New;
     }
 
-    public Customer(String name, String surname, String login, String password, int id, UserGroup group) {
+    public Customer(String name, String surname, String login, String password, int id, UserState status) {
         super(name, surname, login, password);
         this.id = id;
-        this.group = group;
+        this.status = status;
     }
 
     public Customer(String name, String surname, LocalDate birthDay,
                     String login, String password, UserState state, String email,
-                    int id, String address, String phone, UserGroup group) {
+                    int id, String address, String phone, UserState status) {
         super(name, surname, birthDay, login, password, state, email);
         this.id = id;
         this.address = address;
         this.phone = phone;
-        this.group = group;
+        this.status = status;
     }
 
 
@@ -58,22 +58,22 @@ public class Customer extends User implements Identeficator<Integer>{
         this.phone = phone;
     }
 
-    public UserGroup getGroup() {
-        return group;
+    public UserState getStatus() {
+        return status;
     }
 
-    public void setGroup(UserGroup group) {
-        this.group = group;
+    public void setStatus(UserState status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", group=" + group +
-                '}';
+                ", status=" + status +
+                "} " + super.toString();
     }
 }
 

@@ -4,6 +4,7 @@ import dao.AbstractDao;
 import dao.DaoException;
 import domain.Customer;
 import domain.UserGroup;
+import domain.UserState;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -27,26 +28,28 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT customer_id,name,surname,birthday,address,phone,group,login FROM customers WHERE customer_id = ";
+        return "SELECT id,name,surname,born_date,login,password,user_status,email,address,phone_number FROM customers WHERE id = ";
     }
 
     @Override
     public String getUpdateQuery() {
         return "UPDATE customers SET " +
-                "name = ?, " +
-                "surname =?," +
-                "birthday=?" +
-                "address=?" +
-                "phone=?" +
-                "group=?" +
-                "login=?" +
-                "WHERE customer_id = ?;";
+                "name=?," +
+                "surname=?," +
+                "born_date=?," +
+                "login=?," +
+                "password=?," +
+                "user_status=?," +
+                "email=?," +
+                "address=?," +
+                "phone_number=?" +
+                " WHERE customer_id = ?;";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO сustomers (name,surname,birthday,address,phone,group,login)" +
-                " VALUES(?,?,?,?,?,?,?)";
+        return "INSERT INTO customers (name,surname,born_date,login,password,user_status,email,address,phone_number) " +
+                "VALUES(?,?,?,?,?,?,?,?,?);";
     }
 
     @Override
@@ -63,25 +66,27 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
                 String surname = rs.getString(3);
-                LocalDate birthday = convertToLocalDate(rs.getDate(4));
-                String address = rs.getString(5);
-                String phone = rs.getString(6);
-                String group = rs.getString(7);
-                String login = rs.getString(8);
+                LocalDate bornDate = convertToLocalDate(rs.getDate(4));
+                String login = rs.getString(5);
+                String password = rs.getString(6);
+                String user_status = rs.getString(7);
+                String email = rs.getString(8);
+                String address = rs.getString(9);
+                String phone = rs.getString(10);
 
-                UserGroup uGroup = null;
-                switch (group) {
+                UserState state = null;
+                switch (user_status) {
                     case "New":
-                        uGroup = UserGroup.New;
+                       state = UserState.New;
                         break;
                     case "Active":
-                        uGroup = UserGroup.Active;
+                        state = UserState.Active;
                         break;
                     case "Blocked":
-                        uGroup = UserGroup.Blocked;
+                        state = UserState.Blocked;
                         break;
                     case "Banned":
-                        uGroup = UserGroup.Banned;
+                        state = UserState.Banned;
                         break;
                 }
 
@@ -89,11 +94,13 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
                 cm.setId(id);
                 cm.setName(name);
                 cm.setSurname(surname);
-                cm.setBirthDay(birthday);
+                cm.setBirthDay(bornDate);
+                cm.setLogin(login);
+                cm.setPassword(password);
+                cm.setStatus(state);
+                cm.setEmail(email);
                 cm.setAddress(address);
                 cm.setPhone(phone);
-                cm.setGroup(uGroup);
-                cm.setLogin(login);
                 customer.add(cm);
             }
         } catch (Exception e) {
@@ -108,14 +115,16 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
     @Override
     public void parseUpdate(PreparedStatement prSt, Customer obj) throws DaoException {
         try {
-            prSt.setInt(1,obj.getId());
-            prSt.setString(2,obj.getName());
-            prSt.setString(3,obj.getSurname());
-            prSt.setDate(4, convertToSqlDate(obj.getBirthDay()));
-            prSt.setString(5,obj.getAddress());
-            prSt.setString(6,obj.getPhone());
-            prSt.setString(7,obj.getGroup().toString());
-            prSt.setString(8,obj.getLogin());
+            prSt.setInt(10,obj.getId());
+            prSt.setString(1,obj.getName());
+            prSt.setString(2,obj.getSurname());
+            prSt.setDate(3, convertToSqlDate(obj.getBirthDay()));
+            prSt.setString(4,obj.getLogin());
+            prSt.setString(5,obj.getPassword());
+            prSt.setString(6,obj.getStatus().toString());
+            prSt.setString(7,obj.getEmail());
+            prSt.setString(8,obj.getAddress());
+            prSt.setString(9,obj.getPhone());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,10 +137,12 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
             prSt.setString(1,obj.getName());
             prSt.setString(2,obj.getSurname());
             prSt.setDate(3, convertToSqlDate(obj.getBirthDay()));
-            prSt.setString(4,obj.getAddress());
-            prSt.setString(5,obj.getPhone());
-            prSt.setString(6,obj.getGroup().toString());
-            prSt.setString(7,obj.getLogin());
+            prSt.setString(4,obj.getLogin());
+            prSt.setString(5,obj.getPassword());
+            prSt.setString(6,obj.getStatus().toString());
+            prSt.setString(7,obj.getEmail());
+            prSt.setString(8,obj.getAddress());
+            prSt.setString(9,obj.getPhone());
         } catch (SQLException e) {
             e.printStackTrace();
         }
