@@ -43,7 +43,7 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
                 "email=?," +
                 "address=?," +
                 "phone_number=?" +
-                " WHERE customer_id = ?;";
+                " WHERE id = ?;";
     }
 
     @Override

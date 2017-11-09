@@ -66,7 +66,7 @@ public abstract class AbstractDao<T extends Identeficator<PK>, PK extends Serial
     public T read(int key) throws DaoException {
         ArrayList<T> list;
         String SELECT_QUERY = getSelectQuery();
-        SELECT_QUERY += " WHERE id =?";
+        SELECT_QUERY += "?;";
         try (PreparedStatement prStatment = connection.prepareStatement(SELECT_QUERY)) {
             prStatment.setInt(1, key);
             ResultSet rs = prStatment.executeQuery();
