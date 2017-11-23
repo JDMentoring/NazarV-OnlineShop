@@ -4,7 +4,7 @@ import dao.Identeficator;
 
 import java.time.LocalDate;
 
-public class Customer extends User implements Identeficator<Integer>{
+public class Customer extends User implements Identeficator<Integer> {
     private int id;
     private String address;
     private String phone;
@@ -64,6 +64,24 @@ public class Customer extends User implements Identeficator<Integer>{
 
     public void setStatus(UserState status) {
         this.status = status;
+    }
+
+    public void setStatus(String user_status) {
+        switch (user_status) {
+            case "New":
+                this.status = UserState.New;
+                break;
+            case "Active":
+                this.status = UserState.Active;
+                break;
+            case "Blocked":
+                this.status = UserState.Blocked;
+                break;
+            case "Banned":
+                this.status = UserState.Banned;
+                break;
+        }
+
     }
 
     @Override

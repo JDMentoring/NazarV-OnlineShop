@@ -74,21 +74,6 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
                 String address = rs.getString(9);
                 String phone = rs.getString(10);
 
-                UserState state = null;
-                switch (user_status) {
-                    case "New":
-                       state = UserState.New;
-                        break;
-                    case "Active":
-                        state = UserState.Active;
-                        break;
-                    case "Blocked":
-                        state = UserState.Blocked;
-                        break;
-                    case "Banned":
-                        state = UserState.Banned;
-                        break;
-                }
 
                 ExtraCustomer cm = new ExtraCustomer();
                 cm.setId(id);
@@ -97,7 +82,7 @@ public class MysqlDaoCustomer extends AbstractDao<Customer, Integer> {
                 cm.setBirthDay(bornDate);
                 cm.setLogin(login);
                 cm.setPassword(password);
-                cm.setStatus(state);
+                cm.setStatus(user_status );
                 cm.setEmail(email);
                 cm.setAddress(address);
                 cm.setPhone(phone);

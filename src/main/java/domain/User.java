@@ -59,7 +59,7 @@ public class User extends Person {
         return state;
     }
 
-    public void setState(UserState state) {
+    public void setState(String state) {
         this.state = state;
     }
 

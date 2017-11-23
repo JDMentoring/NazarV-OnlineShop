@@ -23,7 +23,7 @@ public abstract class AbstractDao<T extends Identeficator<PK>, PK extends Serial
 
     public abstract String getDeleteQuery();
 
-    public abstract ArrayList<T> parseResultSet(ResultSet rs) throws DaoException;
+    public abstract ArrayList<T> parseResultSet(ResultSet rs) throws DaoException, SQLException;
 
     public abstract void parseUpdate(PreparedStatement prSt, T obj) throws DaoException;
 
