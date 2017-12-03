@@ -21,33 +21,26 @@ VALUES  ('nazar17','voichak17','New','nazar.voichak@gmail.com'),
 SELECT * FROM users;
 
 INSERT INTO employees (persons_id,users_id,departments_id,job_titles_id,salary,hire_date)
-VALUES (
-(SELECT id FROM persons WHERE f_name = 'Nazar' AND l_name = 'Voichak'),
+VALUES
+((SELECT id FROM persons WHERE f_name = 'Nazar' AND l_name = 'Voichak'),
 (SELECT id FROM users WHERE  login = 'nazar17'),
 (SELECT id FROM departments WHERE short_name ='Продажі'),
 (SELECT id FROM job_titles WHERE title_name = 'Менеджер'),10000, CURRENT_DATE),
-);
-
-VALUES (
-(SELECT id FROM persons WHERE f_name = 'Igor' AND l_name = 'Kupchak'),
+((SELECT id FROM persons WHERE f_name = 'Igor' AND l_name = 'Kupchak'),
 (SELECT id FROM users WHERE  login = 'igor17'),
-(SELECT id FROM departments WHERE short_name ='Консультант'),
-(SELECT id FROM job_titles WHERE title_name = 'Підтримка'),10000, CURRENT_DATE),
-);
-
-VALUES (
-(SELECT id FROM persons WHERE f_name = 'Igor' AND l_name = 'Voichak'),
+(SELECT id FROM departments WHERE short_name ='Підтримка'),
+(SELECT id FROM job_titles WHERE title_name = 'Консультант'),10000, CURRENT_DATE),
+((SELECT id FROM persons WHERE f_name = 'Igor' AND l_name = 'Voichak'),
 (SELECT id FROM users WHERE  login = 'igor16'),
-(SELECT id FROM departments WHERE short_name ='Курєр'),
-(SELECT id FROM job_titles WHERE title_name = 'Доставка'),10000, CURRENT_DATE),
-);
+(SELECT id FROM departments WHERE short_name ='Доставка'),
+(SELECT id FROM job_titles WHERE title_name = 'Курєр'),10000, CURRENT_DATE),
+((SELECT id FROM persons WHERE f_name = 'Oleksandr' AND l_name = 'Baza'),
+(SELECT id FROM users WHERE  login = 'oleksandr17'),
+(SELECT id FROM departments WHERE short_name ='Логістика'),
+(SELECT id FROM job_titles WHERE title_name = 'Постачальник'),10000, CURRENT_DATE);
 
-VALUES (
-(SELECT id FROM persons WHERE f_name = 'Oleksandr' AND l_name = 'Baza'),
-(SELECT id FROM users WHERE  login = 'baza17'),
-(SELECT id FROM departments WHERE short_name ='Постачальник'),
-(SELECT id FROM job_titles WHERE title_name = 'Логістика'),10000, CURRENT_DATE),
-);
+
+SELECT * FROM employees;
 
 
 INSERT INTO persons (f_name,l_name,born_date)
