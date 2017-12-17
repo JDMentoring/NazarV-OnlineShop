@@ -3,7 +3,7 @@ package Mysql;
 import dao.DaoException;
 import dao.DaoFactory;
 import dao.GenericDao;
-import domain.Customer;
+import domain.Person;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class MysqlDaoFactory implements DaoFactory<Connection>{
     private String DRIVER = "com.mysql.jdbc.Driver";
-    private String URL = "jdbc:mysql://servlab.mysql.ukraine.com.ua:3306/servlab_shopnv?useSSL=false";
+    private String URL = "jdbc:mysql://servlab.mysql.tools:3306/servlab_shopnv?useSSL=false";
     private String USERNAME = "servlab_shopnv";
     private String PASSWORD = "jxxbnqz2";
     private Map<Class, DaoCreator> allDaoObjects;
@@ -28,10 +28,10 @@ public class MysqlDaoFactory implements DaoFactory<Connection>{
 
         allDaoObjects = new HashMap<Class,DaoCreator>();
 
-        allDaoObjects.put(Customer.class, new DaoCreator<Connection>() {
+        allDaoObjects.put(Person.class, new DaoCreator<Connection>() {
             @Override
             public GenericDao create(Connection connection) {
-                return new MysqlDaoCustomer(connection);
+                return new MysqlPersonDao(connection);
             }
         });
     }

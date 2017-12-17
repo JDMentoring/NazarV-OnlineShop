@@ -5,33 +5,41 @@ import dao.DaoException;
 import dao.DaoFactory;
 import dao.GenericDao;
 import domain.Customer;
+import domain.Person;
 import domain.UserGroup;
 import domain.UserState;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class StartProgram {
+    private static MysqlDaoFactory factory;
+    private static GenericDao personDao;
+
     public static void main(String[] args) {
-        DaoFactory<Connection> factory = new MysqlDaoFactory();
-        GenericDao dao = null;
-        Connection connection = null;
+        Scanner input = new Scanner(System.in);
+
+
         try {
-            connection = factory.getConnection();
-            dao = factory.getDao(connection, Customer.class);
-            Customer cm = new Customer();
-            cm.setName("Назар");
-            cm.setSurname("Войчак");
-            cm.setBirthDay(LocalDate.of(1998,6,9));
-            cm.setLogin("nazzik_v");
-            cm.setPassword("qwerty");
-            cm.setStatus(UserState.Active);
-            cm.setEmail("nazar@gmail.com");
-            cm.setAddress("Шевченка 12");
-            cm.setPhone("0680363051");
-            dao.create(cm);
+            factory = new MysqlDaoFactory();
+            personDao = factory.getDao(factory.getConnection(), Person.class);
+
+            System.out.print("Enter your name");
+            String name = input.next();
+
+            System.out.print("Enter your surname");
+            String surname = input.next();
+            LocalDate bd = LocalDate.now();
+
+
+            Person pr = new Person(name, surname, bd);
+            personDao.create(pr);
+
         } catch (DaoException e) {
             e.printStackTrace();
         }
+
+
     }
 }

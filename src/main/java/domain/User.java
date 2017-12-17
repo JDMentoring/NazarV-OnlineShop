@@ -1,43 +1,11 @@
 package domain;
 
-import java.time.LocalDate;
 
 public class User extends Person {
     private String login;
     private String password;
     private UserState state;
     private String email;
-
-    public User() {
-        super();
-        this.login = "user";
-        this.password = "1234";
-        this.state = UserState.New;
-        this.email = "";
-    }
-
-    public User(String name, String surname, String login, String password) {
-        super(name, surname);
-        this.login = login;
-        this.password = password;
-        this.state = UserState.New;
-    }
-
-    public User(String name, String surname, LocalDate birthDay, String login, String password) {
-        super(name, surname, birthDay);
-        this.login = login;
-        this.password = password;
-        this.state = UserState.New;
-    }
-
-    public User(String name, String surname, LocalDate birthDay,
-                String login, String password, UserState state, String email) {
-        super(name, surname, birthDay);
-        this.login = login;
-        this.password = password;
-        this.state = state;
-        this.email = email;
-    }
 
     public String getLogin() {
         return login;
@@ -60,7 +28,7 @@ public class User extends Person {
     }
 
     public void setState(String state) {
-        this.state = state;
+        //this.state = state;
     }
 
     public String getEmail() {

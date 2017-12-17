@@ -1,29 +1,41 @@
 package domain;
 
+import dao.Identeficator;
+
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Person {
+public class Person  implements Identeficator<Integer>{
+    private int id;
     private String name;
     private String surname;
     private LocalDate birthDay;
 
     public Person() {
-        this.name = "noname";
-        this.surname = "nosurname";
-        this.birthDay = LocalDate.now();
-    }
-
-    public Person(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.birthDay = LocalDate.now();
+        this.birthDay = birthDay;
+    }
+
+    public Person(int id, String name, String surname, LocalDate birthDay) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.birthDay = birthDay;
     }
 
     public Person(String name, String surname, LocalDate birthDay) {
         this.name = name;
         this.surname = surname;
         this.birthDay = birthDay;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    protected void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,15 +62,11 @@ public class Person {
         this.birthDay = birthDay;
     }
 
-    public int getAge() {
-        Period age = Period.between(birthDay, LocalDate.now());
-        return age.getYears();
-    }
-
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthDay=" + birthDay +
                 '}';

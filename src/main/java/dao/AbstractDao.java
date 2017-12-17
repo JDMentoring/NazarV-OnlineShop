@@ -23,6 +23,8 @@ public abstract class AbstractDao<T extends Identeficator<PK>, PK extends Serial
 
     public abstract String getDeleteQuery();
 
+    public abstract String getWhereQuery();
+
     public abstract ArrayList<T> parseResultSet(ResultSet rs) throws DaoException, SQLException;
 
     public abstract void parseUpdate(PreparedStatement prSt, T obj) throws DaoException;
@@ -46,7 +48,7 @@ public abstract class AbstractDao<T extends Identeficator<PK>, PK extends Serial
             log.error(obj.getMessage());
         }
 
-        query = getSelectQuery() + "(SELECT last_insert_id());";
+        query = getSelectQuery() +getWhereQuery() + "(SELECT last_insert_id());";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -65,8 +67,8 @@ public abstract class AbstractDao<T extends Identeficator<PK>, PK extends Serial
     @Override
     public T read(int key) throws DaoException {
         ArrayList<T> list;
-        String SELECT_QUERY = getSelectQuery();
-        SELECT_QUERY += "?;";
+        String SELECT_QUERY = getSelectQuery() + getWhereQuery()+ "?";
+
         try (PreparedStatement prStatment = connection.prepareStatement(SELECT_QUERY)) {
             prStatment.setInt(1, key);
             ResultSet rs = prStatment.executeQuery();
