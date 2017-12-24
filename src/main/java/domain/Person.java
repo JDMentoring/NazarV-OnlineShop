@@ -1,6 +1,7 @@
 package domain;
 
 import dao.Identeficator;
+import supportFiles.ConsoleReader;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -46,12 +47,21 @@ public class Person  implements Identeficator<Integer>{
         this.name = name;
     }
 
+    public void setName() {
+        this.name = ConsoleReader.getStringData("Please enter you name");
+    }
+
     public String getSurname() {
         return surname;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
+
+    }
+
+    public void setSurname() {
+        this.surname = ConsoleReader.getStringData("Please enter you surname");
     }
 
     public LocalDate getBirthDay() {
@@ -60,6 +70,13 @@ public class Person  implements Identeficator<Integer>{
 
     public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public void setBirthDay() {
+        int year = ConsoleReader.getIntData("Please enter you born year");
+        int month = ConsoleReader.getIntData("Please enter you born month");
+        int day = ConsoleReader.getIntData("Please enter you born day");
+        this.birthDay = LocalDate.of(year,month,day);
     }
 
     @Override
